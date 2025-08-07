@@ -250,7 +250,7 @@ def sigmoid(x, t, lambda_=10):
     x = torch.tensor(x) if isinstance(x, list) else x
     return 1 / (1 + torch.exp(-lambda_ * (x - t)))
 
-def loss_maxima(graph, image, image_gt, saliency_measure, importance_measure, p=1):
+def loss_multiCTree(graph, image, image_gt, saliency_measure, importance_measure, p=1):
     """
     Loss that favors the presence of num_target_maxima in the given image.
 
@@ -264,11 +264,6 @@ def loss_maxima(graph, image, image_gt, saliency_measure, importance_measure, p=
     :param p: float >=0, power (see parameter p in loss_ranked_selection)
     :return: a torch scalar
     """
-    if not saliency_measure in ["altitude", "dynamics", "disconnection", "connection"]:
-    raise ValueError("Saliency_measure can be either 'altitude', 'dynamics', 'connect', 'disconnection', or 'connection'")
-
-    if not importance_measure in ["altitude", "dynamics", "area", "volume", "precision"]:
-    raise ValueError("Saliency_measure can be either 'altitude', 'dynamics', 'area', 'volume', or 'precision")
 
     tree, altitudes = max_tree(graph, image)
     altitudes_np = altitudes.detach().numpy()
@@ -307,6 +302,7 @@ def loss_maxima(graph, image, image_gt, saliency_measure, importance_measure, p=
         importance = extrema_volume
 
     elif importance_measure == "precision":
+        # 292*282
         height, width = image_gt.shape  # get from input directly
         image_gt = image_gt.reshape(height * width, 1)
         image = image.detach().numpy().reshape(height * width, 1)
@@ -315,10 +311,15 @@ def loss_maxima(graph, image, image_gt, saliency_measure, importance_measure, p=
         importance = tc.tensor([extinction_value[i] for i in extrema_indices])
     
     threshold = otsu_threshold(importance)
+    print(threshold)
 
     if hasattr(threshold, 'item'):
         threshold = threshold.item()
 
     sigmoid_values = sigmoid(importance, threshold)
 
-    return tc.sum((saliency[0] * (1 - sigmoid_values)) + (tc.relu(saliency[1] * (1 - sigmoid_values)) + (saliency[2] * sigmoid_values))), threshold
+    return tc.sum(
+        (saliency[0] * (1 - sigmoid_values)) + 
+        (tc.relu(saliency[1] * (1 - sigmoid_values)) +
+        (saliency[2] * sigmoid_values))
+    ), threshold
