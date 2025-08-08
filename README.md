@@ -2,15 +2,12 @@
 
 This repository implements topology-aware loss functions (clDice, CTree, multiCTree) for vessel segmentation tasks. It provides full training, evaluation, and reproducibility on datasets such as DRIVE, LESAV, and CREMI using UNet/ATTUNet architectures.
 
----
-
 ## Features
 
 - Flexible loss: BCE+Dice (Baseline), clDice, CTree, and multiCTree
 - Full training and evaluation pipeline for multiple datasets and folds
 - Topological metrics: Dice Score, Accuracy, clDice, Δ#(TPCCs), #(FPCCs), FPCC size, etc.
 
----
 
 ## System Requirements
 
