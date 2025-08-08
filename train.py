@@ -131,7 +131,7 @@ def ctree_loss(input):
     batch_size = input.size(0)
     
     loss_ct_last = torch.tensor(0.0, device="cpu", requires_grad=True)  # Ensure it's a tensor
-    graph = hg.get_8_adjacency_implicit_graph((584, 565))
+    graph = hg.get_8_adjacency_implicit_graph((input.shape[1], input.shape[2]))
     
     for i in range(batch_size):
         loss_ct = loss_maxima(graph, input[i,:,:].cpu().data, "dynamics", "volume", num_target_maxima=1, margin=1, p=1)
