@@ -1,4 +1,4 @@
-# Adaptive Multi-factor Component Tree Loss for Topology-Aware Medical Image Segmentation
+# Multi-factor Component Tree Loss Function
 
 This repository implements topology-aware loss functions (clDice, CTree, multiCTree) for vessel segmentation tasks. It provides full training, evaluation, and reproducibility on datasets such as DRIVE, LESAV, and CREMI using UNet/ATTUNet architectures.
 
@@ -83,4 +83,5 @@ python3 combine_all.py \
     --root_dir <RENAMED_OUTPUT_DIR> \
     --output_dir <FINAL_OUTPUT_DIR>
 ```
+
 
