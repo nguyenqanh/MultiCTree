@@ -17,7 +17,7 @@ This repository implements topology-aware loss functions (clDice, CTree, multiCT
 
 ## Dataset
 
-In our paper, we conduct experiments on the [DRIVE](https://drive.grand-challenge.org/), [LES-AV](https://figshare.com/articles/dataset/LES-AV_dataset/11857698?file=21732282), and [CREMI](https://cremi.org/data/) datasets. Please download each dataset and place it in the `./datasets/{dataset}/training/` directory. Store the input images in `./datasets/{dataset}/training/images/` and the ground truth labels in `./datasets/{dataset}/training/labels/`.
+In our paper, we conduct experiments on the public datasets including [DRIVE](https://drive.grand-challenge.org/), [LES-AV](https://figshare.com/articles/dataset/LES-AV_dataset/11857698?file=21732282), and [CREMI](https://cremi.org/data/). Please download each dataset and place it in the `./datasets/{dataset}/training/` directory. Store the input images in `./datasets/{dataset}/training/images/` and the ground truth labels in `./datasets/{dataset}/training/labels/`.
 
 ## Training
 
@@ -83,3 +83,4 @@ python3 combine_all.py \
     --root_dir <RENAMED_OUTPUT_DIR> \
     --output_dir <FINAL_OUTPUT_DIR>
 ```
+
